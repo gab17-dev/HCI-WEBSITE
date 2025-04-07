@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page Student</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8e6d2;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+            height: 100%;
+        }
+        .left-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+        .card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            aspect-ratio: 1;
+            background-color: #f8e6d2;
+            border: 4px solid #000;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+        .card-screen {
+            width: 90%;
+            height: 70%;
+            background-color: #fff;
+            border: 3px solid #ccc;
+            border-radius: 15px;
+        }
+        .card-label {
+            background-color: #d8a7b1;
+            padding: 10px 20px;
+            border-radius: 25px;
+            position: absolute;
+            bottom: -20px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .home-button {
+            margin-bottom: 20px;
+            width: 40px; /* Set width for the icon */
+            height: 40px; /* Set height for the icon */
+            background-color: transparent; /* No background */
+            border: none; /* No border */
+            cursor: pointer;
+            text-align: center;
+        }
+        .home-button img {
+            width: 100%; /* Make the image fill the button */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .main-container {
+                flex-direction: row;
+            }
+
+            .left-section {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+
+            .card-label {
+                font-size: 16px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .left-section {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Home Button with Icon -->
+        <a href="index.html" class="home-button">
+            <img src="home-icon.png" alt="Home Icon"> <!-- Replace with your icon image -->
+        </a>
+
+        <!-- Left Section -->
+        <div class="left-section">
+            <a href="programmingstudent.html" class="card">
+                <div class="card-screen"></div>
+                <div class="card-label">PROGRAMMING</div>
+            </a>
+            <a href="hcistudent.html" class="card">
+                <div class="card-screen"></div>
+                <div class="card-label">HCI</div>
+            </a>
+            <a href="utsstudent.html" class="card">
+                <div class="card-screen"></div>
+                <div class="card-label">UTS</div>
+            </a>
+            <a href="fclstudent.html" class="card">
+                <div class="card-screen"></div>
+                <div class="card-label">FCL</div>
+            </a>
+            <a href="mmwstudent.html" class="card">
+                <div class="card-screen"></div>
+                <div class="card-label">MMW</div>
+            </a>
+            <a href="pathfitstudent.html

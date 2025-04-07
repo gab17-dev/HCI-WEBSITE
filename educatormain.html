@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notebook Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fdf3e3;
+        }
+        .notebook {
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            max-width: 1200px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        .sidebar {
+            width: 100%;
+            background-color: #fdf3e3;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .sidebar img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+        }
+        .content div {
+            height: 50px;
+            background-color: #ffe4eb;
+            border: 2px solid #000;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sidebar-home {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #000;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .sidebar-home i {
+            color: #fff;
+            font-size: 24px;
+        }
+        .names {
+            background-color: #ffc641;
+            padding: 10px;
+            border-radius: 0 0 10px 10px;
+        }
+        .names input {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #000;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .names ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .names ul li {
+            margin-bottom: 10px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .names ul li button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .names ul li button:hover {
+            background-color: #444;
+        }
+
+        @media (min-width: 768px) {
+            .notebook {
+                flex-direction: row;
+                height: 70vh;
+            }
+            .sidebar {
+                width: 20%;
+                flex-direction: column;
+                align-items: center;
+            }
+            .content {
+                width: 60%;
+                height: 100%;
+            }
+            .names {
+                width: 20%;
+                height: 100%;
+                border-radius: 0 10px 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="notebook">
+        <div class="sidebar">
+            <div class="sidebar-home" onclick="goHome()">
+                <i>&#8962;</i>
+            </div>
+            <img src="placeholder.png" alt="Notebook Image">
+        </div>
+        <div class="content">
+            <div id="section1">Drop Here</div>
+            <div id="section2">Drop Here</div>
+            <div id="section3">Drop Here</div>
+        </div>
+        <div class="names">
+            <input type="text" id="search" placeholder="Search..." oninput="filterNames()">
+            <ul id="nameList">
+                <li>Kelvin <button onclick="addToSection('Kelvin')">+</button></li>
+                <li>Arwil <button onclick="addToSection('Arwil')">+</button></li>
+                <li>Lejohn <button onclick="addToSection('Lejohn')">+</button></li>
+                <li>Mickey <button onclick="addToSection('Mickey')">+</button></li>
+                <li>Anton <button onclick="addToSection('Anton')">+</button></li>
+                <li>Sean <button onclick="addToSection('Sean')">+</button></li>
+                <li>Andrew <button onclick="addToSection('Andrew')">+</button></li>
+                <li>Kelvin <button onclick="addToSection('Sam')">+</button></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        function addToSection(name) {
+            const sections = document.querySelectorAll('.content div');
+            for (let section of sections) {
+                if (section.innerHTML === 'Drop Here') {
+                    section.innerHTML = name;
+                    return;
+                }
+            }
+            alert('All sections are full!');
+        }
+
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+
+        function filterNames() {
+            const searchInput = document.getElementById('search').value.toLowerCase();
+            const nameItems = document.querySelectorAll('#nameList li');
+
+            nameItems.forEach(item => {
+                const name = item.textContent.toLowerCase();
+                if (name.includes(searchInput)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

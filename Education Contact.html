@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        /* Your existing styles remain unchanged */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFF3E1;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: #FFD700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            flex-wrap: wrap;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .logo img {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .header .logo h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header .nav {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .header .nav a {
+            text-decoration: none;
+            font-size: 16px;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .header .nav a:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .header .auth {
+            display: flex;
+            gap: 10px;
+        }
+
+        .header .auth button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .header .auth .login {
+            background-color: transparent;
+            color: black;
+            border: 1px solid black;
+        }
+
+        .header .auth .signup {
+            background-color: #00A8FF;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #FFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form button {
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        .contact-form button {
+            background-color: #FFD700;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="https://img.icons8.com/doodle/48/000000/pencil.png" alt="Pencil Icon">
+            <h1>EDUCATION.COM</h1>
+        </div>
+        <nav class="nav">
+            <a href="index.html">HOME</a>
+            <a href="Education About.html">ABOUT</a>
+            <a href="Education Subjects.html">SUBJECTS</a>
+            <a href="Education FAQS.html">FAQ's</a>
+            <a href="Education Contact.html">CONTACT</a>
+        </nav>
+        <div class="auth">
+            <button class="login" onclick="openModal('loginModal')">LOG IN</button>
+            <button class="signup" onclick="openModal('signupModal')">SIGN UP</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Contact Us</h2>
+        <form class="contact-form" id="contactForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" placeholder="Your Message" required></textarea>
+            <button type="button" onclick="submitForm()">Send Message</button>
+        </form>
+
+        <div class="contact-details">
+            <h3>Our Contact Information</h3>
+            <p>Email: support@education.com</p>
+            <p>Phone: +1 (123) 456-7890</p>
+            <p>Address: 123 Education Lane, Knowledge City, 56789</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+ // Initialize EmailJS with your user ID
+        emailjs.init("YOUR_USER_ID"); // Replace "YOUR_USER_ID" with your EmailJS User ID
+
+        function submitForm() {
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const message = document.getElementById("message").value.trim();
+
+            if (!name || !email || !message) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            // Create the email parameters
+            const templateParams = {
+                from_name: name,
+                from_email: email,
+                to_email: "saemjallipa@gmail.com", // Recipient's email
+                message: message
+            };
+
+            // Send the email using EmailJS
+            emailjs
+                .send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams) // Replace placeholders with your actual values
+                .then(() => {
+                    alert("Your message has been sent successfully!");
+                    document.getElementById("contactForm").reset();
+                })
+                .catch((error) => {
+                    console.error("Failed to send email:", error);
+                    alert("An error occurred. Please try again.");
+                });
+        }
+
+        // Validate email format
+        function validateEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+    </script>
+</body>
+</html>

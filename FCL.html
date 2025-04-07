@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFF3E1;
+        }
+
+        .header {
+            background-color: #FFD700;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .header .logo img {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .header .logo h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .header .nav a {
+            text-decoration: none;
+            font-size: 16px;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .header .nav a:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .top-bar {
+            background-color: #FAE6CE;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px solid #000;
+        }
+
+        .top-bar img {
+            width: 25px;
+            cursor: pointer;
+        }
+
+        .top-bar span {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 1200px;
+            gap: 20px;
+        }
+
+        .section {
+            width: 100%;
+            background-color: #FFF;
+            border: 2px solid #000;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .section textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #000;
+            border-radius: 5px;
+        }
+
+        .section button {
+            padding: 10px 20px;
+            font-size: 14px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .section button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px;
+            }
+
+            .header .logo {
+                margin-bottom: 10px;
+            }
+
+            .header .nav {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .top-bar span {
+                font-size: 16px;
+            }
+
+            .container {
+                gap: 15px;
+            }
+
+            .section h2 {
+                font-size: 18px;
+            }
+
+            .section textarea {
+                height: 80px;
+            }
+
+            .section button {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="https://img.icons8.com/doodle/48/000000/pencil.png" alt="Pencil Icon">
+            <h1>EDUCATION.COM</h1>
+        </div>
+        <nav class="nav">
+            <a href="index.html">HOME</a>
+            <a href="Education About.html">ABOUT</a>
+            <a href="Education Subjects.html">SUBJECTS</a>
+            <a href="Education FAQS.html">FAQ's</a>
+            <a href="Education Contact.html">CONTACT</a>
+        </nav>
+    </header>
+
+    <div class="top-bar">
+        <img src="https://img.icons8.com/ios-filled/50/000000/home.png" alt="Home Icon" onclick="location.href='Education Subjects.html'">
+        <span>FCL</span>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2>Announcements</h2>
+            <textarea placeholder="Write an announcement..."></textarea>
+            <button>Publish Announcement</button>
+        </div>
+        <div class="section">
+            <h2>Assignments</h2>
+            <textarea placeholder="Describe the assignment..."></textarea>
+            <button>Publish Assignment</button>
+        </div>
+    </div>
+</body>
+</html>

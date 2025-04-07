@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMW STUDENT</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8e6d2;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: row;
+            box-sizing: border-box;
+            height: 100vh;
+        }
+        .left-menu {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+        .left-menu img {
+            width: 50px;
+            height: 50px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .left-menu img:hover {
+            transform: scale(1.1);
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .notebook {
+            width: 100%;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .notebook .page {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-height: 100%;
+            overflow-y: auto;
+        }
+        .notebook .page .entry {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border: 3px solid #000;
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .notebook .page .entry textarea {
+            flex: 1;
+            border: none;
+            outline: none;
+            resize: none;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .notebook .page .entry .label {
+            background-color: #d8a7b1;
+            padding: 5px 15px;
+            border-radius: 25px;
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .notebook .page .entry .pin {
+            width: 30px;
+            height: 30px;
+            background-color: #ffeb3b;
+            border-radius: 50%;
+            border: 2px solid #000;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+        .notebook .page .entry.done {
+            background-color: #d4edda; /* Light green for done tasks */
+        }
+
+        /* Search Bar */
+        .search-bar {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .search-bar button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #00A8FF;
+            color: white;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        .search-bar button:hover {
+            background-color: #007bb5;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                height: auto;
+            }
+            .left-menu {
+                flex-direction: row;
+                justify-content: space-around;
+                width: 100%;
+                padding: 10px 0;
+                box-shadow: none;
+                border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+            }
+            .content {
+                padding: 10px;
+            }
+            .notebook {
+                width: 100%;
+                padding: 10px;
+            }
+            .notebook .page . entry {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Left Menu -->
+        <div class="left-menu">
+            <a href="studentmain.html"><img src="home-icon.png" alt="Home"></a>
+            <img src="magnifier-icon.png" alt="Search" onclick="toggleSearch()">
+            <img src="pin-icon.png" alt="Pin">
+            <img src="clipboard-icon.png" alt="Tasks">
+        </div>
+
+        <!-- Content Section -->
+        <div class="content">
+            <div class="notebook">
+                <div class="search-bar" id="searchBar" style="display: none;">
+                    <input type="text" id="searchInput" placeholder="Search notes...">
+                    <button onclick="searchNotes()">Search</button>
+                </div>
+                <div class="page">
+                    <div class="entry">
+                        <div class="label">Label 1</div>
+                        <textarea placeholder="Write something..."></textarea>
+                        <div class="pin" onclick="pinNote(this)"></div>
+                    </div>
+                    <div class="entry">
+                        <div class="label">Label 2</div>
+                        <textarea placeholder="Write something..."></textarea>
+                        <div class="pin" onclick="pinNote(this)"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.style.display = searchBar.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        function searchNotes() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const entries = document.querySelectorAll('.entry');
+            entries.forEach(entry => {
+                const text = entry.querySelector('textarea').value.toLowerCase();
+                entry.style.display = text.includes(query) ? 'flex' : 'none';
+            });
+        }
+
+        function pinNote(pinElement) {
+            const entry = pinElement.parentElement;
+            entry.classList.toggle('done');
+            pinElement.style.backgroundColor = entry.classList.contains('done') ? '#28a745' : '#ffeb3b'; // Change color based on state
+        }
+    </script>
+</body>
+</html>

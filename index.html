@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education UI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f9fa; /* Light background color */
+        }
+
+        .header {
+            background-color: #FFD700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            flex-wrap: wrap;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .logo img {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .header .logo h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header .nav {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header .nav a {
+            text-decoration: none;
+            font-size: 16px;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .header .nav a:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .header .auth {
+            display: flex;
+            gap: 10px;
+        }
+
+        .header .auth button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .header .auth .login {
+            background-color: transparent;
+            color: black;
+            border: 1px solid black;
+        }
+
+        .header .auth .signup {
+            background-color: #00A8FF;
+            color: white;
+        }
+
+        .banner {
+            position: relative;
+            text-align: center;
+            color: white;
+            height: 100vh; /* Same height as the first code */
+            overflow: hidden;
+        }
+
+        .banner img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the entire area */
+        }
+
+        .banner .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 45px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 3;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #00A8FF;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .form-container button:hover {
+            background-color: #007bb5; /* Darker blue on hover */
+        }
+
+        .form-container .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-container .close:hover {
+            color: red;
+        }
+
+        /* Responsive Design */
+        @media ( max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header .nav {
+                width: 100%;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .header .auth {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .banner {
+                height: 40vh;
+            }
+
+            .banner .overlay {
+                font-size: 22px;
+            }
+
+            .form-container input {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="https://img.icons8.com/doodle/48/000000/pencil.png" alt="Pencil Icon">
+            <h1>EDUCATION.COM</h1>
+        </div>
+        <nav class="nav">
+            <a href="index.html">HOME</a>
+            <a href="Education About.html">ABOUT</a>
+            <a href="Education Subjects.html">SUBJECTS</a>
+            <a href="Education FAQS.html">FAQ's</a>
+            <a href="Education Contact.html">CONTACT</a>
+        </nav>
+        <div class="auth">
+            <button class="login" onclick="openModal('loginModal')">LOG IN</button>
+            <button class="signup" onclick="openModal('signupModal')">SIGN UP</button>
+        </div>
+    </header>
+
+    <section class="banner">
+        <img src="Students.jpg" alt="Students studying">
+        <div class="overlay">Ignite the Mind, Illuminate the Future</div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="form-container">
+            <button class="close" onclick="closeModal('loginModal')">&times;</button>
+            <h2>Log In</h2>
+            <input type="email" id="loginEmail" placeholder="Email" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button onclick="handleLogin()">Log In</button>
+            <p><a href="#" onclick="openModal('forgotPasswordModal')">Forgot Password?</a></p>
+            <p id="timer" style="color: red; display: none;"></p>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signupModal" class="modal">
+        <div class="form-container">
+            <button class="close" onclick="closeModal('signupModal')">&times;</button>
+            <h2>Sign Up</h2>
+            <input type="text" id="signupName" placeholder="Full Name" required>
+            <input type="email" id="signupEmail" placeholder="Email" required>
+            <input type="password" id="signupPassword" placeholder="Password" required>
+            <button onclick="handleSignUp()">Sign Up</button>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="modal">
+        <div class="form-container">
+            <button class="close" onclick="closeModal('forgotPasswordModal')">&times;</button>
+            <h2>Forgot Password</h2>
+            <input type="email" id="forgotEmail" placeholder="Enter your email" required>
+            <button onclick="handleForgotPassword()">Send Reset Link</button>
+        </div>
+    </div>
+
+    <script>
+        const users = JSON.parse(localStorage.getItem('users')) || {}; // Load user credentials from localStorage
+        let loginAttempts = {}; // Track login attempts
+        const lockoutTime = 60000; // 1 minute in milliseconds
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (loginAttempts[email] && loginAttempts[email].locked) {
+                alert('Too many failed attempts. Please try again later.');
+                return;
+            }
+
+            if (users[email] && users[email] === password) {
+                alert('Login successful!');
+                window.location.href = email.endsWith('@student.edu.ph') ? 'studentmain.html' : 'educatormain.html';
+                resetLoginAttempts(email);
+            } else {
+                alert('Invalid email or password. Please try again.');
+                trackLoginAttempt(email);
+            }
+        }
+
+        function handleSignUp() {
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            if (name && email && password) {
+                users[email] = password; // Store user credentials
+                localStorage.setItem('users', JSON.stringify(users)); // Save to localStorage
+                alert('Sign up successful! Please log in to continue.');
+                closeModal('signupModal');
+            } else {
+                alert('Please fill out all fields.');
+            }
+        }
+
+        function handleForgotPassword() {
+            const email = document.getElementById('forgotEmail').value;
+
+            if (users[email]) {
+                alert('A password reset link has been sent to your email address.');
+                closeModal('forgotPasswordModal');
+            } else {
+                alert('Email not found. Please check and try again.');
+            }
+        }
+
+        function trackLoginAttempt(email) {
+            if (!loginAttempts[email]) {
+                loginAttempts[email] = { count: 0, locked: false };
+            }
+            loginAttempts[email].count++;
+
+            if (loginAttempts[email].count >= 3) {
+                loginAttempts[email].locked = true;
+                alert('Too many failed attempts. You are locked out for 1 minute.');
+                startTimer(email);
+            }
+        }
+
+        function startTimer(email) {
+            let timeLeft = 60; // 1 minute
+            const timerDisplay = document.getElementById('timer');
+            timerDisplay.style.display = 'block';
+            timerDisplay.innerText = `Please wait ${timeLeft} seconds before trying again.`;
+
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                timerDisplay.innerText = `Please wait ${timeLeft} seconds before trying again.`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    resetLoginAttempts(email);
+                    timerDisplay.style.display = 'none';
+                }
+            }, 1000);
+        }
+
+        function resetLoginAttempts(email) {
+            if (loginAttempts[email]) {
+                loginAttempts[email].count = 0;
+                loginAttempts[email].locked = false;
+            }
+        }
+    </script>
+</body>
+</html>
