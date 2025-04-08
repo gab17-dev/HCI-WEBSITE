@@ -10,10 +10,19 @@
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
             background-color: #fdf3e3;
+        }
+        .header {
+            width: 100%;
+            background-color: #ffbb33;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
         .notebook {
             display: flex;
@@ -23,6 +32,7 @@
             background-color: #fff;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
+            margin-top: 20px;
         }
         .sidebar {
             width: 100%;
@@ -147,6 +157,10 @@
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1>Notebook Organizer</h1>
+    </div>
+
     <div class="notebook">
         <div class="sidebar">
             <div class="sidebar-home" onclick="goHome()">
