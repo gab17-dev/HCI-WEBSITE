@@ -38,21 +38,6 @@
             height: 50px;
             border-radius: 10px;
         }
-        .content {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding: 20px;
-        }
-        .content div {
-            height: 50px;
-            background-color: #ffe4eb;
-            border: 2px solid #000;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
         .sidebar-home {
             display: flex;
             justify-content: center;
@@ -66,6 +51,39 @@
         .sidebar-home i {
             color: #fff;
             font-size: 24px;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            width: 100%;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .section-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .section {
+            background-color: #ffe4eb;
+            border: 2px solid #000;
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .add-section {
+            background-color: #ffbb33;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
         }
         .names {
             background-color: #ffc641;
@@ -89,10 +107,12 @@
             margin-bottom: 10px;
             font-size: 18px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
         }
         .names ul li button {
+            margin-top: 5px;
             background-color: #000;
             color: #fff;
             border: none;
@@ -135,9 +155,8 @@
             <img src="placeholder.png" alt="Notebook Image">
         </div>
         <div class="content">
-            <div id="section1">Drop Here</div>
-            <div id="section2">Drop Here</div>
-            <div id="section3">Drop Here</div>
+            <button class="add-section" onclick="addNewSection()">Add Section Here</button>
+            <div id="sections-container" class="section-container"></div>
         </div>
         <div class="names">
             <input type="text" id="search" placeholder="Search..." oninput="filterNames()">
@@ -149,24 +168,80 @@
                 <li>Anton <button onclick="addToSection('Anton')">+</button></li>
                 <li>Sean <button onclick="addToSection('Sean')">+</button></li>
                 <li>Andrew <button onclick="addToSection('Andrew')">+</button></li>
-                <li>Kelvin <button onclick="addToSection('Sam')">+</button></li>
+                <li>Sam <button onclick="addToSection('Sam')">+</button></li>
             </ul>
         </div>
     </div>
+
     <script>
-        function addToSection(name) {
-            const sections = document.querySelectorAll('.content div');
-            for (let section of sections) {
-                if (section.innerHTML === 'Drop Here') {
-                    section.innerHTML = name;
-                    return;
-                }
-            }
-            alert('All sections are full!');
-        }
+        let currentSection = null;
+        let sectionData = {};
 
         function goHome() {
             window.location.href = 'index.html';
+        }
+
+        function addNewSection() {
+            const sectionContainer = document.getElementById("sections-container");
+
+            const newDiv = document.createElement("div");
+            newDiv.classList.add("section");
+            const input = document.createElement("input");
+            input.type = "text";
+            input.placeholder = "Enter section name and press Enter";
+            input.addEventListener("keydown", function(e) {
+                if (e.key === "Enter") {
+                    createSection(this.value, newDiv);
+                }
+            });
+            newDiv.appendChild(input);
+            sectionContainer.appendChild(newDiv);
+            sectionContainer.scrollTop = sectionContainer.scrollHeight;
+        }
+
+        function createSection(name, sectionElement) {
+            if (!name.trim()) return;
+            sectionElement.innerHTML = '';
+            const title = document.createElement("div");
+            title.className = "section-title";
+            title.innerText = `Section: ${name}`;
+            const studentList = document.createElement("div");
+            studentList.className = "student-list";
+            studentList.innerText = "Students: (none)";
+            const doneButton = document.createElement("button");
+            doneButton.innerText = "Done";
+            doneButton.onclick = () => finishAddingStudents(name, studentList);
+
+            sectionElement.appendChild(title);
+            sectionElement.appendChild(studentList);
+            sectionElement.appendChild(doneButton);
+
+            sectionData[name] = [];
+            currentSection = name;
+            sectionElement.addEventListener("click", () => viewStudents(name));
+        }
+
+        function addToSection(name) {
+            if (!currentSection) {
+                alert("Please select a section first.");
+                return;
+            }
+            if (!sectionData[currentSection].includes(name)) {
+                sectionData[currentSection].push(name);
+                alert(`${name} added to ${currentSection}`);
+            } else {
+                alert(`${name} is already in ${currentSection}`);
+            }
+        }
+
+        function finishAddingStudents(sectionName, studentListElement) {
+            const students = sectionData[sectionName];
+            studentListElement.innerText = students.length ? `Students: ${students.join(", ")}` : "Students: (none)";
+        }
+
+        function viewStudents(sectionName) {
+            currentSection = sectionName;
+            alert(`Students in ${sectionName}: ${sectionData[sectionName].join(", ")}`);
         }
 
         function filterNames() {
@@ -175,11 +250,7 @@
 
             nameItems.forEach(item => {
                 const name = item.textContent.toLowerCase();
-                if (name.includes(searchInput)) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
-                }
+                item.style.display = name.includes(searchInput) ? '' : 'none';
             });
         }
     </script>
